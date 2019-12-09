@@ -1015,7 +1015,7 @@ func NewNatsPodSpec(namespace, name, clusterName string, cs v1alpha2.ClusterSpec
 			imagePullPolicy = cs.Pod.MetricsImagePullPolicy
 		}
 
-		metricsContainer := natsPodMetricsContainer(image, imageTag, imagePullPolicy)
+		metricsContainer := natsPodMetricsContainer(image, imageTag, imagePullPolicy, cs.Pod.MetricsResources)
 		containers = append(containers, metricsContainer)
 	}
 

@@ -123,7 +123,7 @@ func natsPodReloaderContainer(image, tag, pullPolicy, authFilePath string, r v1.
 }
 
 // natsPodMetricsContainer returns a NATS server pod container spec for prometheus metrics exporter.
-func natsPodMetricsContainer(image, tag, pullPolicy string) v1.Container {
+func natsPodMetricsContainer(image, tag, pullPolicy string, r v1.ResourceRequirements) v1.Container {
 	return v1.Container{
 		Name:            "metrics",
 		Image:           fmt.Sprintf("%s:%s", image, tag),
@@ -144,6 +144,7 @@ func natsPodMetricsContainer(image, tag, pullPolicy string) v1.Container {
 			"-channelz",
 			"-serverz",
 			fmt.Sprintf("http://localhost:%d", constants.MonitoringPort)},
+		Resources: r,
 	}
 }
 
